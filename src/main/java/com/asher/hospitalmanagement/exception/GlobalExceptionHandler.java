@@ -22,6 +22,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+
+import org.springframework.security.core.AuthenticationException;
 /**
  * Centralized exception handler for REST API requests.
  *
@@ -168,13 +170,31 @@ public class GlobalExceptionHandler {
                 request
         );
     }
+    /**
+     * Handles authentication failures, such as incorrect
+     * email/password combinations.
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiErrorResponse> handleAuthenticationException(
+            AuthenticationException exception,
+            HttpServletRequest request
+    ) {
 
+        logger.warn("Authentication failed: {}", exception.getMessage());
+
+        return buildErrorResponse(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid email or password",
+                request
+        );
+    }
     /**
      * Handles unexpected exceptions.
      *
      * Internal exception details are logged but not exposed
      * to API clients.
      */
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGeneralException(
             Exception exception,

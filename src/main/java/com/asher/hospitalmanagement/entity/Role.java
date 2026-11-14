@@ -6,7 +6,7 @@ package com.asher.hospitalmanagement.entity;
  * Additional roles can be introduced later if required.
  */
 public enum Role {
-
+    USER,
     ADMIN
 
 }
