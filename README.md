@@ -1,136 +1,194 @@
+
 # Hospital Management System
 
-## Overview
+A backend REST API application developed using Java, Spring Boot, Spring Security, and MySQL.
 
-A practical Hospital Management System developed using Java, Spring Boot, MySQL, and React.
-
-The application aims to manage essential hospital operations through RESTful APIs and a user-friendly frontend while following industry-standard coding practices and clean architecture.
+The application focuses on implementing secure REST APIs, managing hospital-related data, handling authentication and authorization, and following maintainable backend development practices.
 
 ## Technology Stack
 
-| Category | Technologies |
+| Technology | Purpose |
 |---|---|
-| Programming Language | Java 25 |
-| Backend Framework | Spring Boot |
-| Build Tool | Maven |
-| Database | MySQL |
-| ORM | Spring Data JPA, Hibernate |
-| Security | Spring Security, JWT |
-| Caching | Redis |
-| Messaging | RabbitMQ, JMS |
-| Batch Processing | Spring Batch |
-| AOP | Spring AOP |
-| Frontend | React, JavaScript |
-| Testing | JUnit 5, Mockito |
-| Version Control | Git, GitHub |
+| Java 25 | Backend programming language |
+| Spring Boot | Application framework |
+| Spring Web | REST API development |
+| Spring Data JPA | Database access |
+| Hibernate | ORM implementation |
+| Spring Security | Authentication and authorization |
+| JWT | Token-based authentication |
+| MySQL | Relational database |
+| Maven | Dependency and build management |
+| JUnit 5 | Unit testing |
+| Mockito | Mocking dependencies during testing |
+| Postman | API testing |
 
-## Application Modules
+## Project Architecture
 
-1. Patient Management
-2. Doctor Management
-3. Appointment Management
-4. Medical Records
-5. Billing Management
+The application follows a layered architecture:
 
-## Development Roadmap
+```text
+Client (Postman)
+      |
+      v
+Controller Layer
+      |
+      v
+Service Interface
+      |
+      v
+Service Implementation
+      |
+      v
+Repository Layer
+      |
+      v
+MySQL Database
+```
 
-### Part 1 — Backend Foundations
-- Spring Boot project setup and configuration
-- MySQL database integration
-- Entity and repository implementation
-- DTOs and mapper classes
-- Service interfaces and implementations
-- REST API development
-- Validation and global exception handling
-- User registration and authentication
-- JWT-based authentication and authorization
-- Logging and unit testing
-
-### Part 2 — Advanced Backend Development
-- Redis caching
-- RabbitMQ and JMS messaging
-- Spring Batch and Excel processing
-- Aspect-Oriented Programming
-- Spring Cloud fundamentals
-
-### Part 3 — React Frontend Development
-- React project setup
-- Authentication pages
-- API integration
-- Token management
-- Protected routes
-- Hospital dashboard
-- Patient, doctor, and appointment management
-- Frontend and backend integration
+DTOs and Mapper classes handle data transfer and conversion between API requests/responses and database entities.
 
 ## Project Structure
 
 ```text
-Hospital_Management_System/
+Hospital-Management-System/
 │
 ├── docs/
 │   └── features/
-│       ├── 01-project-setup/
-│       ├── 02-database-configuration/
-│       ├── 03-entity-and-repository/
-│       └── ...
+│       └── 01-project-setup/
+│           └── README.md
 │
 ├── src/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/asher/hospitalmanagement/
-│   │   │       ├── Config/
-│   │   │       ├── Controller/
-│   │   │       ├── DTO/
-│   │   │       ├── Entity/
-│   │   │       ├── Exception/
-│   │   │       ├── Mapper/
-│   │   │       ├── Repository/
-│   │   │       ├── Security/
-│   │   │       ├── Service/
-│   │   │       │   ├── Interface/
-│   │   │       │   └── Implementation/
-│   │   │       └── Validation/
+│   │   │       ├── config/
+│   │   │       ├── controller/
+│   │   │       ├── dto/
+│   │   │       ├── entity/
+│   │   │       ├── exception/
+│   │   │       ├── mapper/
+│   │   │       ├── repository/
+│   │   │       ├── security/
+│   │   │       ├── service/
+│   │   │       │   ├── interfaces/
+│   │   │       │   └── implementations/
+│   │   │       ├── validation/
+│   │   │       └── HospitalManagementApplication.java
 │   │   │
 │   │   └── resources/
+│   │       └── application.properties
 │   │
 │   └── test/
 │       └── java/
+│           └── com/asher/hospitalmanagement/
 │
-└── frontend/
-    └── src/
-        ├── assets/
-        ├── components/
-        ├── pages/
-        ├── services/
-        ├── context/
-        ├── hooks/
-        ├── routes/
-        └── utils/
+├── .gitignore
+├── pom.xml
+└── README.md
 ```
 
-## Development Standards
+## Coding Standards
 
-- Maintain a layered architecture.
-- Use DTOs and mapper classes instead of exposing entities.
-- Use service interfaces and separate implementation classes.
+The project follows these development standards:
+
+- Maintain separation of concerns using layered architecture.
+- Use DTOs instead of exposing JPA entities directly.
+- Use Mapper classes for Entity-to-DTO conversions.
 - Prefer constructor-based dependency injection.
-- Implement request validation and global exception handling.
-- Use appropriate HTTP methods and status codes.
-- Store credentials and secrets in environment variables.
-- Implement meaningful logging.
-- Write unit tests for service-layer business logic.
-- Maintain feature-wise documentation.
-- Verify changes before committing and merging.
+- Define service interfaces and separate implementation classes.
+- Validate incoming request data.
+- Implement centralized exception handling.
+- Use appropriate HTTP methods and response status codes.
+- Apply database constraints wherever required.
+- Keep credentials and sensitive configuration outside source control.
+- Add meaningful logging.
+- Write unit tests for business logic.
+
+## Database Configuration
+
+The project uses MySQL with the following default schema:
+
+`hospital_management`
+
+Database connection details are supplied through environment variables:
+
+| Variable | Description |
+|---|---|
+| `DB_URL` | MySQL JDBC connection URL |
+| `DB_USERNAME` | MySQL username |
+| `DB_PASSWORD` | MySQL password |
+
+## Running the Application
+
+### Prerequisites
+
+- JDK 25
+- Apache Maven
+- MySQL Server
+
+### 1. Create the database
+
+```sql
+CREATE DATABASE hospital_management;
+```
+
+### 2. Configure environment variables
+
+Set `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` in your environment.
+
+### 3. Build the project
+
+```bash
+mvn clean install
+```
+
+### 4. Run the application
+
+```bash
+mvn spring-boot:run
+```
+
+The application will run at:
+
+`http://localhost:8080`
+
+## API Testing
+
+Postman will be used to:
+
+- Send HTTP requests.
+- Test REST API endpoints.
+- Verify request validation.
+- Check response status codes and response bodies.
+- Test authentication and authorization.
+- Verify JWT-protected endpoints.
+
+## Development Roadmap
+
+Features will be developed independently using Git feature branches.
+
+Each feature will include its own implementation, testing, and documentation.
 
 ## Git Workflow
 
-- `main`: Stable project overview.
-- `develop`: Integrated development branch.
-- `feature/*`: Individual feature implementation branches.
+```text
+main
+  |
+  v
+develop
+  |
+  v
+feature/<feature-name>
+  |
+  v
+Implementation + Testing + Documentation
+  |
+  v
+Merge into develop
+```
 
-Every completed feature will be documented, committed, pushed, and merged into `develop`.
+## Project Status
 
-## Author
+Currently in development.
 
-**Asher Mustafa**
+**Current Feature:** Feature 01 - Project Setup and Initial Configuration
