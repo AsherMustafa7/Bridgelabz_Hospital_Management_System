@@ -10,7 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+
+import com.asher.hospitalmanagement.exception.ResourceNotFoundException;
 
 /**
  * Implements the business operations defined by PatientService.
@@ -68,7 +69,7 @@ public class PatientServiceImpl implements PatientService {
                 .orElseThrow(() -> {
                     logger.warn("Patient not found with ID: {}", id);
 
-                    return new NoSuchElementException(
+                    return new ResourceNotFoundException(
                             "Patient not found with ID: " + id
                     );
                 });
